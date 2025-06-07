@@ -1001,8 +1001,47 @@
           </div>
 
           <div class="col-lg-7">
-            <form action="https://formsubmit.co/aravindj239@gmail.com" method="post" class="php-email-form" data-aos="fade-up"
-              data-aos-delay="200">
+
+            <!-- Load EmailJS -->
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+  (function() {
+    emailjs.init("KlgZNYE-IjUr3xj52"); // Replace with your public key
+  })();
+
+  function sendMail(e) {
+    e.preventDefault(); // Prevent form submit default
+    e.stopPropagation();
+    // Hide all messages initially
+  document.querySelector('.loading').style.display = 'block';
+  document.querySelector('.sent-message').style.display = 'none';
+  // document.querySelector('.error-message').style.display = 'none';
+
+    emailjs.sendForm('service_98gebo8', 'template_trrldgp', '#contact-form')
+ .then(function(response) {
+  console.log("✅ Email sent successfully", response);
+      document.querySelector('.loading').style.display = 'none';
+
+      // Show only success
+      document.querySelector('.sent-message').style.display = 'block';
+      // document.querySelector('.error-message').style.display = 'none';
+
+      // Optional: reset the form
+      document.getElementById('contact-form').reset();
+    }, function(error) {
+      console.log("❌ Email sending failed", error);
+      document.querySelector('.loading').style.display = 'none';
+
+      // Show only error
+      document.querySelector('.sent-message').style.display = 'none';
+      // document.querySelector('.error-message').textContent = "Failed to send: " + error.text;
+      // document.querySelector('.error-message').style.display = 'block';
+    });
+  }
+</script>
+
+            <form id="contact-form" onsubmit="sendMail(event)" class="php-email-form" data-aos="fade-up"
+              data-aos-delay="200" novalidate>
               <div class="row gy-4">
 
                 <div class="col-md-6">
@@ -1027,7 +1066,7 @@
 
                 <div class="col-md-12 text-center">
                   <div class="loading">Loading</div>
-                  <div class="error-message"></div>
+                  <!-- <div class="error-message"></div> -->
                   <div class="sent-message">Your message has been sent. Thank you!</div>
 
                   <button type="submit">Send Message</button>
